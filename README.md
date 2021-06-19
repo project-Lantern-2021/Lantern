@@ -2,14 +2,14 @@
 Encore Final Project :: Lantern - Sign Language Education Service 2021.05 - 06
 
 
-> Team - 손전등
->
-> Team player
->  + 임혜린 - PM, Frontend
->  + 김민규 - Backend
->  + 이소정 - Backend, Data analysis
->  + 이혁희 - Data analysis
->  + 조은상 - Data analysis
+##### Team - 손전등
+
+##### Team player
+ + 임혜린 - PM, Frontend
+ + 김민규 - Backend
+ + 이소정 - Backend, Data analysis
+ + 이혁희 - Data analysis
+ + 조은상 - Data analysis
 
 
 
@@ -36,49 +36,41 @@ Encore Final Project :: Lantern - Sign Language Education Service 2021.05 - 06
 > + 퀴즈를 통해 학습한 수어 동작을 확인할 수 있으며, 포인트에 따른 리워드 제공을 통해 학습을 독려, 참여율 증진에 영향을 줍니다.
 > + YOLOv4-tiny 모델을 통해 처리 속도를 높여, 인터넷 프레임 드랍으로 인한 학습 이탈률을 완화하여 학습 완주율을 높입니다.
 
-----------------------
 
 ## 4. 서비스 목표
 
 > 체험과 실습이라는 활동적인 교육형태로 구성되어, '오프라인 수업, 정보전달'로만 이루어진 현 수어교육의 문제점을 해결하고 특수 직군 종사자(수어 통역사 등)뿐만 아니라, 일반인들이 수어를 쉽게 배울 수 있도록 수어교육 서비스를 제공하는 것이 최종 목표입니다.
  
- ----------------------
  
  ## 5. 서비스 개발
  
-+ EC2 개발 환경에서 웹 어플리케이션으로 Spring boot를 사용, 모델 API는 Django를 이용하여 수어 교육 서비스를 구현했습니다.
-+ 데이터베이스는 MariaDB를 사용했으며, 동영상 스트리밍을 위해 S3 스토리지 서비스를 이용합니다. 
-+ Spring boot에서 Django로 웹캠 이미지를 전송하면 Django에서 모델 구동 후 결과값을 다시 Spring boot로 전송하는 형태로 설계했습니다.
-+ 이와 같은 방식으로 학습 및 퀴즈 페이지 서비스를 구현했으며, 사용자 학습에 도움을 주는 웹 서비스를 개발했습니다.
+> + EC2 개발 환경에서 웹 어플리케이션으로 Spring boot를 사용, 모델 API는 Django를 이용하여 수어 교육 서비스를 구현했습니다.
+> + 데이터베이스는 MariaDB를 사용했으며, 동영상 스트리밍을 위해 S3 스토리지 서비스를 이용합니다. 
+> + Spring boot에서 Django로 웹캠 이미지를 전송하면 Django에서 모델 구동 후 결과값을 다시 Spring boot로 전송하는 형태로 설계했습니다.
+> + 이와 같은 방식으로 학습 및 퀴즈 페이지 서비스를 구현했으며, 사용자 학습에 도움을 주는 웹 서비스를 개발했습니다.
 
------------------------
 
 ## 6. 데이터 학습 방법 및 개선사항
 
-+ YOLOv4의 장점 : 
-  다른 object detection model 보다 AP 및 FPS 성능이 더 우월합니다. (또한, YOLOv3에 비해서는 YOLOv4의 AP가 최대 10%, FPS가 최대 12%까지 향상됐습니다.)
+> + YOLOv4의 장점 : 
+>  다른 object detection model 보다 AP 및 FPS 성능이 더 우월합니다. (또한, YOLOv3에 비해서는 YOLOv4의 AP가 최대 10%, FPS가 최대 12%까지 향상됐습니다.)
+>
+> + 단어 별 핵심 동작의 이미지 프레임을 추출하여 모델이 학습할 손모양을 labelImg tool을 이용해 label 및 annotation을 생성한 후, YOLOv4 모델의 학습 및 결과를 분석했습니다.
+>   하지만 모델의 처리 속도에 문제가 있어 2단계를 거쳐 개선된 최종 모델을 확보했습니다. :
+>    + 1단계 - 기존 YOLOv4 모델의 경우 정확도는 높으나 처리 속도가 늦다는 단점이 있어, YOLOv4 tiny 모델로 대체하여 연산 속도를 개선했습니다.
+>    + 2단계 - 하지만 YOLOv4 tiny는 처리 속도가 빠르나 정확도가 떨어져, 문제를 해결하기 위해 추가 이미지 수집 및 이미지 좌우 반전, 명암 조절과 같은 data augmentation을 통한 YOLOv4 tiny 모델의 정확도를 개선했습니다.
 
-+ 단어 별 핵심 동작의 이미지 프레임을 추출하여 모델이 학습할 손모양을 labelImg tool을 이용해 label 및 annotation을 생성한 후, YOLOv4 모델의 학습 및 결과를 분석했습니다.
-  하지만 모델의 처리 속도에 문제가 있어 2단계를 거쳐 개선된 최종 모델을 확보했습니다. :
-    + 1단계 - 기존 YOLOv4 모델의 경우 정확도는 높으나 처리 속도가 늦다는 단점이 있어, YOLOv4 tiny 모델로 대체하여 연산 속도를 개선했습니다.
-    + 2단계 - 하지만 YOLOv4 tiny는 처리 속도가 빠르나 정확도가 떨어져, 문제를 해결하기 위해 추가 이미지 수집 및 이미지 좌우 반전, 명암 조절과 같은 data augmentation을 통한 YOLOv4 tiny 모델의 정확도를 개선했습니다.
-
---------------------------
 
 ## 7. 추후 발전방향
 
-+ 연속 동작이나 복잡한 동작 또한 추가 학습하여, 다양한 단어 인식이 가능하도록 확대할 예정입니다.
-+ 실시간 동작 인식을 통해, 중간 조작 없이 원활히 학습할 수 있도록 개선할 예정입니다.
-+ 원격 인터페이스를 사용하여 마우스 또는 키보드를 사용하지 않고 학습할 수 있도록 개선 예정입니다.
-+ Education Service에서 시작해, 수어 교육 센터 정보 추가 및 커뮤니티 개발을 통해 비장애인과 장애인을 잇는 교두보 역할로 자리매김할 것입니다.
+> + 연속 동작이나 복잡한 동작 또한 추가 학습하여, 다양한 단어 인식이 가능하도록 확대할 예정입니다.
+> + 실시간 동작 인식을 통해, 중간 조작 없이 원활히 학습할 수 있도록 개선할 예정입니다.
+> + 원격 인터페이스를 사용하여 마우스 또는 키보드를 사용하지 않고 학습할 수 있도록 개선 예정입니다.
+> + Education Service에서 시작해, 수어 교육 센터 정보 추가 및 커뮤니티 개발을 통해 비장애인과 장애인을 잇는 교두보 역할로 자리매김할 것입니다.
 
----------------------------
+## 8. 참고자료
 
-##8. 참고자료
+> 1. 2020 장애인 통계 : https://www.socialfocus.co.kr/news/articleView.html?idxno=9303
+> 2. 보건복지부 - 2020 등록장애인 현황 : https://blog.naver.com/mohw2016/222316716742
+> 3. e-나라 지표 : https://www.index.go.kr/potal/main/EachDtlPageDetail.do?idx_cd=2768
 
-1. 2020 장애인 통계 : https://www.socialfocus.co.kr/news/articleView.html?idxno=9303
-2. 보건복지부 - 2020 등록장애인 현황 : https://blog.naver.com/mohw2016/222316716742
-3. e-나라 지표 : https://www.index.go.kr/potal/main/EachDtlPageDetail.do?idx_cd=2768
-
-
-----------------------------
