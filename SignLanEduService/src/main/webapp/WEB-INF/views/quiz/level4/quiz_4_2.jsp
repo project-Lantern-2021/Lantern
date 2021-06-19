@@ -37,7 +37,7 @@
 	    <!-- Webcam - p5 Js -->
 	    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.min.js"></script>
 		  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.dom.min.js"></script>
-	</head>
+	
 	<style>
 		#myBar {
 			width: 10%;
@@ -48,6 +48,7 @@
 			color: white;
 		}
 	</style>
+</head>
 
 <body>
 
