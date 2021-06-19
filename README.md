@@ -62,10 +62,11 @@ Encore Final Project :: Lantern - Sign Language Education Service 2021.05 - 06
 + YOLOv4의 장점 : 
    다른 object detection model 보다 AP 및 FPS 성능이 더 우월합니다. (또한, YOLOv3에 비해서는 YOLOv4의 AP가 최대 10%, FPS가 최대 12%까지 향상됐습니다.)
 <br/>
+
 + 단어 별 핵심 동작의 이미지 프레임을 추출하여 모델이 학습할 손모양을 labelImg tool을 이용해 label 및 annotation을 생성한 후, YOLOv4 모델의 학습 및 결과를 분석했습니다.
-  하지만 모델의 처리 속도에 문제가 있어 2단계를 거쳐 개선된 최종 모델을 확보했습니다. :
-    + 1단계 - 기존 YOLOv4 모델의 경우 정확도는 높으나 처리 속도가 늦다는 단점이 있어, YOLOv4 tiny 모델로 대체하여 연산 속도를 개선했습니다.
-    + 2단계 - 하지만 YOLOv4 tiny는 처리 속도가 빠르나 정확도가 떨어져, 문제를 해결하기 위해 추가 이미지 수집 및 이미지 좌우 반전, 명암 조절과 같은 data augmentation을 통한 YOLOv4 tiny 모델의 정확도를 개선했습니다.    
++ 하지만 모델의 처리 속도에 문제가 있어 2단계를 거쳐 개선된 최종 모델을 확보했습니다. :
+  + 1단계 - 기존 YOLOv4 모델의 경우 정확도는 높으나 처리 속도가 늦다는 단점이 있어, YOLOv4 tiny 모델로 대체하여 연산 속도를 개선했습니다.
+  + 2단계 - 하지만 YOLOv4 tiny는 처리 속도가 빠르나 정확도가 떨어져, 문제를 해결하기 위해 추가 이미지 수집 및 이미지 좌우 반전, 명암 조절과 같은 data augmentation을 통한 YOLOv4 tiny 모델의 정확도를 개선했습니다.    
 
 <br/>
 <br/>
@@ -82,7 +83,7 @@ Encore Final Project :: Lantern - Sign Language Education Service 2021.05 - 06
 
 ## 8. 참고자료
 
-1. 2020 장애인 통계 : https://www.socialfocus.co.kr/news/articleView.html?idxno=9303
-2. 보건복지부 - 2020 등록장애인 현황 : https://blog.naver.com/mohw2016/222316716742
-3. e-나라 지표 : https://www.index.go.kr/potal/main/EachDtlPageDetail.do?idx_cd=2768    
+**1. 2020 장애인 통계** : https://www.socialfocus.co.kr/news/articleView.html?idxno=9303
+**2. 보건복지부 - 2020 등록장애인 현황** : https://blog.naver.com/mohw2016/222316716742
+**3. e-나라 지표** : https://www.index.go.kr/potal/main/EachDtlPageDetail.do?idx_cd=2768    
 
