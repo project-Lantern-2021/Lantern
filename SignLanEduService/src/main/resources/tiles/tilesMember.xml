@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+	<definition name="/member/create" extends="main">
+		<put-attribute name="title" value="회원가입"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/create.jsp" />
+	</definition>
+	<definition name="/member/create_msg" extends="main">
+		<put-attribute name="title" value="가입알림"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/create_msg.jsp" />
+	</definition>
+	<definition name="/member/list" extends="main">
+		<put-attribute name="title" value="회원목록"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/list.jsp" />
+	</definition>
+	<definition name="/member/login_ck_form" extends="main">
+		<put-attribute name="title" value="로그인"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/login_ck_form.jsp" />
+	</definition>
+	<definition name="/member/myInfo" extends="main">
+		<put-attribute name="title" value="회원정보"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/myInfo.jsp" />
+	</definition>
+	<definition name="/member/myLearnList" extends="main">
+		<put-attribute name="title" value="회원학습이력"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/myLearnList.jsp" />
+	</definition>
+	<definition name="/member/myQuizList" extends="main">
+		<put-attribute name="title" value="회원퀴즈이력"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/myQuizList.jsp" />
+	</definition>
+	<definition name="/member/logout_msg" extends="main">
+		<put-attribute name="title" value="로그아웃"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/member/logout_msg.jsp" />
+	</definition>
+</tiles-definitions>       
