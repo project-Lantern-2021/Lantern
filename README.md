@@ -84,7 +84,7 @@ Encore Final Project :: Lantern - Sign Language Education Service 2021.05 - 06
 
 ## 8. 참고자료
 
-**1. 2020 장애인 통계** : https://www.socialfocus.co.kr/news/articleView.html?idxno=9303
-**2. 보건복지부 - 2020 등록장애인 현황** : https://blog.naver.com/mohw2016/222316716742
-**3. e-나라 지표** : https://www.index.go.kr/potal/main/EachDtlPageDetail.do?idx_cd=2768    
+1. 2020 장애인 통계 : https://www.socialfocus.co.kr/news/articleView.html?idxno=9303
+2. 보건복지부 - 2020 등록장애인 현황 : https://blog.naver.com/mohw2016/222316716742
+3. e-나라 지표 : https://www.index.go.kr/potal/main/EachDtlPageDetail.do?idx_cd=2768    
 
