@@ -81,6 +81,17 @@
 			document.getElementById("progressbar") = bar;
 			document.getElementById("progressbar").style.visibility = 'hidden';		
 		</script>
+	    
+	<style>
+		#myBar {
+			width: 10%;
+			height: 30px;
+			background-color: #04AA6D;
+			text-align: center; /* To center it horizontally (if you want) */
+			line-height: 30px; /* To center it vertically */
+			color: white;
+		}
+	</style>
 	</head>
 	
 
@@ -102,6 +113,12 @@
 			<td><button id="submit" class="btn btn-info">submit</button></td>
 		</tr>
 	</table>
+	
+	<br>
+	<div id="myProgress">
+		<div id="myBar">10%</div>
+	</div>
+	
 	<div id="container-canvas1"></div>
 	<div id="container-canvas2"></div>
 

@@ -38,7 +38,17 @@
 	    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.min.js"></script>
 		  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.dom.min.js"></script>
 		</script>
-	</head>
+	<style>
+		#myBar {
+			width: 10%;
+			height: 30px;
+			background-color: #04AA6D;
+			text-align: center; /* To center it horizontally (if you want) */
+			line-height: 30px; /* To center it vertically */
+			color: white;
+		}
+	</style>
+</head>
  <body>
 
  <p id="answer" style="display: none; height: 100px;">${index}</p>
@@ -57,6 +67,12 @@
 			<td><button id="submit" class="btn btn-info">submit</button></td>
 		</tr>
 	</table>
+	 
+	 <br>
+	<div id="myProgress">
+		<div id="myBar">10%</div>
+	</div>
+	 
 	<div id="container-canvas1"></div>
 	<div id="container-canvas2"></div>
 
