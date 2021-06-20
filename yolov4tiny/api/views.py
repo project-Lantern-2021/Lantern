@@ -32,12 +32,6 @@ def yolov4tiny_outcome(request):
         image_arr = np.frombuffer(image_64, dtype=np.uint8)  # im_arr is one-dim Numpy array
         nparr = cv2.imdecode(image_arr, flags=cv2.IMREAD_COLOR)
         print(nparr.shape)
-
-        # # when inputting image locally: image decode
-        # image = request.data.get('image_serialized', None)
-        # image_64 = base64.b64decode(image)
-        # nparr = np.frombuffer(image_64, dtype=np.uint8)
-        # nparr = nparr.reshape(720, 1280, 3)
        
         #fields to check input data are valid
         fields = [classes_str, image]
@@ -47,15 +41,13 @@ def yolov4tiny_outcome(request):
 
             # image resize
             img = cv2.resize(img, (1280, 720))
-            #img = cv2.resize(img, (416, 416))
-            #img = cv2.resize(img, (960, 540))
 
             boxes = []
             confidences = []
             class_ids = []
             # 추후에 model을 처음 한번만 load하고 매번 load하지 않아도 되도록 수정
-            config_path = './model/assets_augmented_brightness/yolov4-mytiny.cfg'
-            weights_path = './model/assets_augmented_brightness/yolov4-mytiny_best.weights'
+            config_path = './model/assets/yolov4-mytiny.cfg'
+            weights_path = './model/assets/yolov4-mytiny_10000.weights'
             net = cv2.dnn.readNetFromDarknet(config_path, weights_path)
             blob = cv2.dnn.blobFromImage(img, 1 / 255, (416, 416), (0, 0, 0), swapRB=True, crop=False)
             net.setInput(blob)
