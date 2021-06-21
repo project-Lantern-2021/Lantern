@@ -1,0 +1,5 @@
+/.metadata/
+
+### my ignore ###
+application.yml
+application.properties

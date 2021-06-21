@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -23,88 +24,91 @@
 	    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet" />
 	    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@1,700&display=swap" rel="stylesheet" />
 	    <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600,800,900" rel="stylesheet" type="text/css">
-
-	    <!-- Core theme CSS (includes Bootstrap)-->
-	    <link href="<%=request.getContextPath()%>/css/styles.css" rel="stylesheet" type="text/css"/>
-	
-		  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-		  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>  
 		
-		  <!-- Bootstrap core JS-->
-	    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
-	    <script src="<%=request.getContextPath()%>/js/scripts.js"></script> 
-	    
-	    <!-- Webcam - p5 Js -->
-	    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.min.js"></script>
-		  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.dom.min.js"></script>
+		<style>
+			#myBar {
+				width: 10%;
+				height: 30px;
+				background-color: #04AA6D;
+				text-align: center; /* To center it horizontally (if you want) */
+				line-height: 30px; /* To center it vertically */
+				color: white;
+			}
+			
+			#container-canvas1, #container-canvas2 {
+			 	transform: rotateY(180deg);
+			   -webkit-transform:rotateY(180deg); /* Safari and Chrome */
+			   -moz-transform:rotateY(180deg); /* Firefox */
+			}
+			
+			</style>
+		</head>
+	</head>
+
+	<body>	
+	<div class="container px-5">
+		<p id="answer" style="display: none; height: 100px;">${index}</p>
 	
-	<style>
-		#myBar {
-			width: 10%;
-			height: 30px;
-			background-color: #04AA6D;
-			text-align: center; /* To center it horizontally (if you want) */
-			line-height: 30px; /* To center it vertically */
-			color: white;
-		}
-	</style>
-</head>
-
-<body>
-
-	<p id="answer" style="display: none; height: 100px;">${index}</p>
-
-	<script src="/js/webcam_detection.js"></script>
-
-	<h1>Quiz Level 4 - 2</h1>
-	<hr>
-	<div id="problem">Quiz 단어: ${word}</div>
-	<div id="message"></div>
-
-	<hr>
-	<table>
-		<tr>
-			<td><button id="capture" class="btn btn-info">capture</button></td>
-			<td><button id="submit" class="btn btn-info">submit</button></td>
-		</tr>
-	</table>
+		<script src="/js/webcam_detection.js"></script>
+		<script src="/js/quiz_result.js"></script>
 	
-	<br>
-	<div id="myProgress">
-		<div id="myBar">10%</div>
-	</div>
+		<h1>Quiz Level 4 - 2</h1>
+		<hr>
+		<div id="w_num" style="display: none;">${w_num}</div>
+		<div id="problem">Quiz 단어:</div>
+		<div id="problem_word">${word}</div>
+		
 	
-	<div id="container-canvas1"></div>
-	<div id="container-canvas2"></div>
-
-
-	<hr>
-	<form name='frm' method='POST' action='./quiz/level4/quiz_4_2'
-		class="form-horizontal">
-		<input type='hidden' name='m_num' id='m_num' class="form-control" 
-			value='${sessionScope.m_num}'> 
-		<input type="hidden" name="q_correct" class="form-control" 
-			 id="q_correct"> 
-		<input type="hidden" name="q_percent" class="form-control" 
-			 id="q_percent">
-
-		<div class='content_bottom_menu'>
-			<button type="submit" class="btn btn-info">저장</button>
-			<button id="btn_list" type="button" onclick="location.href='/quiz/level4/choose'"
-				class="btn btn-info">목록</button>
-			<button id="btn_next" type="button" onclick="location.href='/quiz/level4/quiz_4_3'"
-				class="btn btn-info">다음</button>
+		<hr>
+		<table>
+			<tr>
+				<td><button id="capture" class="btn btn-info">capture</button></td>
+				<td><button id="submit" class="btn btn-info">submit</button></td>
+			</tr>
+		</table>
+		
+		<div id="message" style="text-align:center;"></div>
+		<div id="display_word" style="visibility:hidden; text-align:center;"></div>
+		<div id="display_conf" style="visibility:hidden; text-align:center;"></div>
+	
+		<br>
+		<div id="myProgress">
+			<div id="myBar"></div>
 		</div>
+	
+		<div id="container-canvas1"></div>
+		<div id="container-canvas2"></div>
+	
+		<hr>
+	
+		<table>
+			<tr>
+				<td><button type="button" id="save_btn" class="btn btn-info">저장</button></td>
+				<td><button id="btn_next" type="button"
+						onclick="location.href='/quiz/level4/quiz_4_1'"
+						class="btn btn-info">이전</button></td>
+				<td><button id="btn_list" type="button"
+						onclick="location.href='/quiz/level4/choose'" class="btn btn-info">목록</button></td>
+				<td><button id="btn_next" type="button"
+						onclick="location.href='/quiz/level4/quiz_4_3'"
+						class="btn btn-info">다음</button></td>
+			</tr>
+		</table>
+    </div>
+	</body>
 
-
-	</form>
-
-<!-- 	<table> -->
-<!-- 		<tr> -->
-<!-- 			<td>이전</td> -->
-<!-- 			<td><A href='/quiz/level4/choose'>목록</A></td> -->
-<!-- 			<td><A href='/quiz/level4/quiz_4_2'>다음</A></td> -->
-<!-- 		</tr> -->
-<!-- 	</table> -->
-</body>
+	<!-- Core theme CSS (includes Bootstrap)-->
+	<link href="<%=request.getContextPath()%>/css/styles.css" rel="stylesheet" type="text/css"/>
+	
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>  
+		
+	<!-- Bootstrap core JS-->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="<%=request.getContextPath()%>/js/scripts.js"></script> 
+	    
+	<!-- Webcam - p5 Js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.dom.min.js"></script>
+	
 </html>

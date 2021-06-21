@@ -5,13 +5,15 @@ var mycanvas;
 
 var classes;
 var word_idx = 0;
-var conf = 0;
 var answer_key = document.getElementById("answer").innerHTML;
-var result = 0;
+var correct = 0;
+var conf = 0;
+var quiz_data;
 
+//text꺼내기
+var word_txt;
 
 var i = 0;
-
 function progress_move() {
 	if (i == 0) {
 		i = 1;
@@ -25,7 +27,7 @@ function progress_move() {
 			} else {
 				width += 10;
 				elem.style.width = width + "%";
-				elem.innerHTML = width + "%";
+				//elem.innerHTML = width;
 			}
 		}
 	}
@@ -36,15 +38,15 @@ function getFrame() {
 	//draw capture_show only on canvas
 	webcam.hide();
 
-	mycanvas = createCanvas(1280 + 155, 720);
+	mycanvas = createCanvas(1280, 720);
+	//mycanvas.position(48+155,0,'fixed')
 	mycanvas.parent("container-canvas2");
-
-	image(capture, 155, 0, 1280, 720);
+	
+	image(capture, 0, 0, 1280, 720);
 	return capture;
 }
 
 function setup() {
-	//VIDEO= document.createElement("VIDEO");
 	webcam = createCapture(VIDEO);
 	webcam.size(1280, 720);
 	webcam.parent("container-canvas1");
@@ -53,7 +55,7 @@ function setup() {
 	button1.addEventListener('click', async event => {
 		//setTimeout(function(){capture = getFrame(webcam)},5000)
 		progress_move();
-		setTimeout(function() { getFrame() }, 10000)
+		setTimeout(function() { getFrame() }, 10000) 
 
 	});
 
@@ -83,48 +85,61 @@ function setup() {
 		};
 		const response = await fetch('http://localhost:8000/result', options);
 		const json = await response.json();
-		console.log(json);
-
 		const json_object = JSON.parse(json);
+
 		word_idx = json_object.word_index;
 		conf = json_object.confidence;
 		const box = json_object.box_coord;
 		const ratio = 540 / 540;
-
-		//draw bounding box and write result with data from JSON
-		if (word_idx != 'INCORRECT' && word_idx === answer_key) {
-			textSize(32);
-			text(word_idx, 10, 30);
-			text(conf, 10, 60);
-			result = 1;
+		
+		if(json_object && word_idx === answer_key){
+			word_txt = document.getElementById("problem_word").innerHTML;
+			correct = 1;
+			
 		}
-		else {
-			textSize(32);
-			text("INCORRECT", 10, 30);
+		else{
+			word_txt = "TRY AGAIN"
 		}
+			
+		//textSize(32);
+		//text(word_txt, 10, 30);
+		//text(conf, 10, 60);
 		fill(0, 102, 153, 51);
-		rect((box[0] * ratio + 155), (box[1] * ratio), (box[2] * ratio), (box[3] * ratio));
-
+		rect((box[0] * ratio), (box[1] * ratio), (box[2] * ratio), (box[3] * ratio));
+		conf = parseFloat(conf)
+		
+		document.getElementById("display_word").innerHTML = word_txt;
+		document.getElementById("display_word").style.visibility = "visible";
+		document.getElementById("display_conf").innerHTML = conf;
+		document.getElementById("display_conf").style.visibility = "visible";
+		
 		check();
-
-		//pass values to jsp html
-		document.getElementById("q_correct").value = result;
-		document.getElementById("q_percent").value = conf;
+		
+		quiz_data = {
+			q_correct: correct,
+			q_percent: conf
+		};
+		w_num = document.getElementById("w_num").innerHTML;
+		//pass result and conf to ajax func
+		var save_btn = $("#save_btn");
+			
+		save_btn.on("click", function(e){
+			quizService.add(w_num,quiz_data, function(result){showResult();});
+		});	
 
 	});
 }
 
 function check() {
-	//console.log("answer_key: ",answer_key);
-	word_idx = word_idx.toString();
-	//console.log("word_idx: ", word_idx);
-
-	if (word_idx === answer_key) {
+	if (correct == 1) {
 		document.getElementById("message").innerHTML = "정답입니다!";
-		document.getElementById("circle").style.visibility = 'visible';
 	}
 	else {
 		document.getElementById("message").innerHTML = "다시 기억해보세요";
-		document.getElementById("circle").style.visibility = 'hidden';
 	}
+}
+
+
+function showResult(){
+	alert("저장되었습니다. 퀴즈이력은 회원님의 history에서 확인해주세요!");
 }

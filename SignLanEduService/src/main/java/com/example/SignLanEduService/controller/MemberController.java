@@ -153,11 +153,34 @@ public class MemberController {
 
 		return mav; // forward
 	}
+	
+	@RequestMapping(value = "/member/myHistory", method = RequestMethod.GET)
+	public ModelAndView readMyHistory(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		
+		int m_num = (int) session.getAttribute("usersno");
+
+		MemberVO memberVO = this.service.read(m_num);
+		List<QuizVO> qlist = this.qservice.readQuizbyMember(m_num);
+		List<LearnVO> llist = this.lservice.readLearnbyMember(m_num);
+		List<WordVO> wlist = this.wservice.listWord();
+		
+		mav.addObject("memberVO", memberVO);
+		mav.addObject("qlist", qlist);
+		mav.addObject("llist", llist);
+		mav.addObject("wlist", wlist);
+		
+		mav.setViewName("/member/myHistory");
+
+		return mav; // forward
+	}
+	
 
 	@RequestMapping(value = "/member/update", method = RequestMethod.POST)
 	public ModelAndView update(MemberVO memberVO) {
 		ModelAndView mav = new ModelAndView();
 
+		
 		int cnt = service.update(memberVO);
 		mav.addObject("cnt", cnt);
 		mav.addObject("usersno", memberVO.getM_num());
@@ -280,6 +303,8 @@ public class MemberController {
 			session.setAttribute("usersno", memberVO.getM_num());
 			session.setAttribute("m_id", m_id);
 			session.setAttribute("m_name", memberVO.getM_name());
+			session.setAttribute("m_is_admin", memberVO.getM_is_admin());
+			System.out.println(memberVO.getM_is_admin());
 
 			if (id_save.equals("Y")) {
 				Cookie ck_id = new Cookie("ck_id", m_id);
