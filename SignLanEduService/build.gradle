@@ -3,15 +3,12 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 	id 'war'
-<<<<<<< HEAD
 }
 
 bootWar {
 	archiveBaseName = 'lantern'
 	archiveFileName = 'lantern.war'
 	archiveVersion = "0.0.0"
-=======
->>>>>>> 41e3dea8c540e75316d8432c31e04ed437b77280
 }
 
 group = 'com.example.SignLanEduService'
