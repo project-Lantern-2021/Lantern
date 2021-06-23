@@ -33,12 +33,37 @@
 	    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
 	    <script src="<%=request.getContextPath()%>/js/scripts.js"></script> 
 	</head>
+	
 <body>
-<section class="masthead">
-<h2>Level 4 학습 완료!</h2> <br>
-<hr>
-${memberVO.m_id }님의 현재 포인트 <br>
-<h2>${memberVO.m_point }</h2>
-</section>
-</body>
+	<body>
+		<section class="quiz">
+			<div class="container px-5">
+	            <div class="row gx-1">
+					<div class="mb-5 mb-lg-0 text-lg-start fs-3">
+					Learn :: level 4
+					<hr>
+					</div>
+					<div class="py-4">
+						<div class="text-center">
+							<h1 class="h3 text-gray-900 mb-5 font-card">Level 4 Completed! <i class="bi bi-stars" style="font-size: 2rem;"></i></h1>
+							<div class="h4 font-card font-blue">
+							${memberVO.m_id }님의 현재 포인트 <br>
+							<h2 class="font-card">${memberVO.m_point }</h2>
+							</div>
+							<div class="fs-3 mt-45">				
+							You have completed level 4! amazing!						
+							<br/>
+							Congratulations!		
+							</div>
+							<br/>
+						</div>
+					</div>
+					<hr>
+					<div class="text-lg-end">
+						<a href='<%=request.getContextPath()%>/learn/select'> 목록 </a>
+					</div>
+				</div>
+			</div>
+		</section>
+	</body>
 </html>
