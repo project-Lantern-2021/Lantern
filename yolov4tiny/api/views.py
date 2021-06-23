@@ -98,7 +98,6 @@ def yolov4tiny_outcome(request):
     except Exception as e:
         print(e)
         json_to_spring = {
-            'word_index': 'INCORRECT',
             'error': '2',
             "message": str(e)
         }
